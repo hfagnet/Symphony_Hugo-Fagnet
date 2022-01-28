@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des produits</h1>
+    
+    <div class="my-5"> 
+        {% if products | length == 0 %}
+            <p><em>Pas de produit</em></p>
+        {% else %}
+            <div>
+                {% if products | length > 0 %}
+                    <section class="products">
+                        {% for product in products %}
+                            <div class="card-user">
+                                <h3><a href="{{ path('product.show', {id : product.id}) }}">
+                                    {{ product.name | upper }}
+                                </a>
+                                </h3>
+                                <h4>{{ product.price }}€</h4>
+                                <p>{{ product.description | slice(0, 300) }}...
+                                <a href="{{ path('product.show', {id : product.id}) }}">
+                                    voir plus
+                                </a>
+                                </p>
+                                <p><em>Créé le {{ product.createdAt | date('d/m/Y') }}</em></p>
+                            </div>
+                        {% endfor %}
+                    </section>
+                {% else %}
+                    <p>No product have been found...</p>
+                {% endif %}
+            </div>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

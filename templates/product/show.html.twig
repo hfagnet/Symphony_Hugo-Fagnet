@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 data-id="{{ product.id }}">{{ product.name }}</h1>
+    <h2>{{ product.price }}€</h2>
+    
+    <div class="my-4">
+        <blockquote class="blockquote text-left">
+            <p class="mb-0">{{ product.description }}</p>
+            <p><em>Créé le {{ product.createdAt | date('d/m/Y') }}</em></p>
+        </blockquote>
+
+        <div class="row"><a class="btn btn-primary" href="{{ path('product') }}" role="button">Retour</a>
+        
+        <button id="addCart" class="btn btn-danger">Ajouter au panier</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    const id = document.querySelector("h1").getAttribute("data-id");
+    const addCart = document.querySelector("#addCart");
+    const url = `/cart/add/${id}`;
+
+    addCart.addEventListener("click", () => {
+        addCart.disabled = true;
+
+        fetch(url)
+            .then(res => res.json())
+    });
+{% endblock %}

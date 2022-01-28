@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Accueil</h1>
+    <div class="row">
+        <div class="my-3 col-md">
+            <h3>Récents</h3>
+            <div class="list-group">
+            {% for p in mostRecentProducts %}
+                <a href="{{ path('p.show', {id : p.id}) }}" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ p.name}}</h5>
+                    
+                        <p>
+                            Créé le {{ p.createdAt | date('d/m/Y') }} 
+                            à {{ p.createdAt | date('H:i:s') }}
+                        </p>
+                    </div>
+                </a>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class="my-3 col-md"> 
+            <h3>Moins chers</h3>
+            <div class="list-group">
+            {% for p in lessPriceProducts %}
+                <a href="{{ path('p.show', {id : p.id}) }}" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ p.name }}</h5>
+                        <small style="color: green">{{ p.price }}</small>
+                    </div>
+                </a>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

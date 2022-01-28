@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande n°{{ command.id }} :{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Commande n°{{ command.id }} :</h1>
+    
+    <div class="my-5">
+        <section>
+            <div style="background-color : lightgrey; padding: 10px; border-radius: 10px; margin: 5px;">
+                <div class="card-user">
+                    <h4>Email : {{ command.email }}</h4>
+                    <p><em>Passée le {{ command.createdAt | date('d/m/Y') }}</em></p>
+                    <h3>Produits :</h3>
+                    <ul>
+                    {% for product in command.products %}
+                        <li><a href="{{ path('product.show', {id : product.id}) }}">
+                            {{ product.name | upper }}
+                        </a>{{ product.price }}€</li>
+                    {% set totalProduct = totalProduct + 1 %}
+                    {% set totalPrice = totalPrice + product.price %}
+                    {% endfor %}
+                    </ul>
+                    <h4>Nombres de produits : {{totalProduct}}</h4>
+                    <h4>Total : {{totalPrice}}€</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

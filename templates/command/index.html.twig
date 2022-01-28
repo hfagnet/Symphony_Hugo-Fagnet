@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des commandes{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des commandes</h1>
+    
+    <div class="my-5"> 
+        {% if commands | length == 0 %}
+            <p><em>Pas de commande</em></p>
+        {% else %}
+            <div>
+                {% if commands | length > 0 %}
+                    <section>
+                        {% for command in commands %}
+                        <div style="background-color : lightgrey; padding: 10px; border-radius: 10px; margin: 5px;">
+                        <a href="{{ path('command.show', {id : command.id}) }}"><h2>Commande n°{{ command.id }} :</h2><h4>Email : {{ command.email }}</h4></a>
+                        </div>
+                        {% endfor %}
+                    </section>
+                {% else %}
+                    <p>Commande introuvée</p>
+                {% endif %}
+            </div>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

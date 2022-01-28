@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Panier{% endblock %}
+{% block body %}
+<div class="container">
+    <h1>Panier</h1>
+    
+    <div class="m-3"> 
+        {% if products | length == 0 %}
+            <p><em>Panier vide !</em></p>
+        {% else %}
+                <table class="table table-dark table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Quantité</th>
+                            <th>Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in products %}
+                            <tr>
+                                <td>{{ p.name }}</td>
+                                <td>1</td>
+                                <td>{{ p.price }}</td>
+                                <td><a href="{{ path('cart.delete', {id: p.id}) }}">Supprimer</a></td>
+                            </tr>
+                            {% set total = total + p.price %}
+                        {% endfor %}
+                            <tr>
+                                <td><b>Total :</b></td>
+                                <td></td>
+                                <td>{{ total }}</td>
+                                <td></td>
+                            </tr>
+                    </tbody>
+                </table>
+        {% endif %}
+    </div>
+    <div class="m-3">
+    <h1>Commande</h1>
+
+    <div class="m-4"> 
+        {{ form_start(commandForm) }}
+            <div class="form-group">
+                <label for="command_email">Email</label>
+                {{ form_widget(commandForm.email) }}
+                <small class="text-danger">
+                    {{ form_errors(commandForm.email) }}
+                </small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Commander
+            </button>
+        {{ form_end(commandForm) }}
+    </div>
+</div>
+{% endblock %}
